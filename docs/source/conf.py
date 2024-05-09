@@ -27,6 +27,13 @@ autodoc_mock_imports = [
     "PIL",
     "keyring",
     "numpy",
+    "easyocr",
+    "orjson",
+    "pandas",
+    "py7zr",
+    "marisa_trie",
+    "requests",
+    "thefuzz"
 ]
 
 extensions = [
