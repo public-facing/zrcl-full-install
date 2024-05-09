@@ -1,10 +1,12 @@
 from typing import get_overloads, get_type_hints
 import inspect
 
+
 def get_overload_signatures(func):
     overloads = get_overloads(func)
     for overloadFunc in overloads:
         yield inspect.signature(overloadFunc)
+
 
 def bind_overload(overloadFunc, *args, **kwargs):
     for sig in get_overload_signatures(overloadFunc):
@@ -13,16 +15,28 @@ def bind_overload(overloadFunc, *args, **kwargs):
         except TypeError:
             pass
 
+
 def is_valid_typeddict(instance, typeddict: type) -> bool:
-    required_keys = {k for k, v in get_type_hints(typeddict).items() if not isinstance(v, type(None))}
-    optional_keys = {k for k, v in get_type_hints(typeddict).items() if isinstance(v, type(None))}
+    required_keys = {
+        k for k, v in get_type_hints(typeddict).items() if not isinstance(v, type(None))
+    }
+    optional_keys = {
+        k for k, v in get_type_hints(typeddict).items() if isinstance(v, type(None))
+    }
 
     # Check for required keys and correct types
-    if not all(k in instance and isinstance(instance[k], get_type_hints(typeddict)[k]) for k in required_keys):
+    if not all(
+        k in instance and isinstance(instance[k], get_type_hints(typeddict)[k])
+        for k in required_keys
+    ):
         return False
 
     # Check for optional keys and correct types if present
-    if not all(isinstance(instance[k], get_type_hints(typeddict)[k]) for k in optional_keys if k in instance):
+    if not all(
+        isinstance(instance[k], get_type_hints(typeddict)[k])
+        for k in optional_keys
+        if k in instance
+    ):
         return False
 
     # Optionally, ensure no extra keys are present
@@ -31,6 +45,7 @@ def is_valid_typeddict(instance, typeddict: type) -> bool:
         return False
 
     return True
+
 
 class ClassProperty(object):
 

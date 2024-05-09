@@ -14,4 +14,3 @@ class SingletonOne(type):
         if cls._ins is None:
             cls._ins = super(SingletonOne, cls).__call__(*args, **kwargs)
         return cls._ins
-    

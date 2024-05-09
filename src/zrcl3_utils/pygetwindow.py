@@ -3,28 +3,33 @@ import pygetwindow as gw
 import typing
 from .screeninfo import get_screen_dimensions
 
-def activate_wnd(wnd : gw.Window):
+
+def activate_wnd(wnd: gw.Window):
     try:
         wnd.activate()
     except gw.PyGetWindowException:
         pass
 
-def get_window_pos(wnd : gw.Window) -> typing.Tuple[float, float, float, float]:
+
+def get_window_pos(wnd: gw.Window) -> typing.Tuple[float, float, float, float]:
     return (wnd.left, wnd.top, wnd.width, wnd.height)
 
+
 def grid_orientation(
-    wnds : typing.List[gw.Window],
-    row : int, 
-    col : int, 
-    maxwidth : float | None = None,
-    maxheight : float | None = None,
-    minwidth : float | None = None,
-    minheight : float | None = None,
-    monitor : int = 0,
-    sleepTime : float = 0.2
+    wnds: typing.List[gw.Window],
+    row: int,
+    col: int,
+    maxwidth: float | None = None,
+    maxheight: float | None = None,
+    minwidth: float | None = None,
+    minheight: float | None = None,
+    monitor: int = 0,
+    sleepTime: float = 0.2,
 ):
 
-    screen_width, screen_height, monitor_x, monitor_y = get_screen_dimensions(monitor_index=monitor)
+    screen_width, screen_height, monitor_x, monitor_y = get_screen_dimensions(
+        monitor_index=monitor
+    )
     num_windows = len(wnds)
     if num_windows == 0 or row == 0 or col == 0:
         return  # Early return if invalid input
@@ -43,7 +48,7 @@ def grid_orientation(
         window_height = max(window_height, minheight)
 
     for index, window_instance in enumerate(wnds):
-        window_instance : gw.Win32Window
+        window_instance: gw.Win32Window
         new_x = (index % col) * window_width + monitor_x
         new_y = (index // col) * window_height + monitor_y
 
@@ -53,5 +58,5 @@ def grid_orientation(
 
         if index == row * col - 1:
             break
-            
+
         sleep(sleepTime)
