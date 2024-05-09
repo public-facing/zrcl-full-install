@@ -12,7 +12,7 @@ package_name = 'zrcl'
 
 def generate_submodule_rst(pkg_name, module):
     output = ""
-    output+= f"{module.split(".")[0]}.{pkg_name}\n"
+    output+= f"{pkg_name}.{module.split(".")[-1]}\n"
     output+="------------------\n\n"
     output += f".. automodule:: {module}\n"
     output += "    :members:\n"

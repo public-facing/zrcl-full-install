@@ -1,4 +1,4 @@
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.easyocr
 ------------------
 
 .. automodule:: zrcl3_utils.easyocr
@@ -6,7 +6,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.hashlib
 ------------------
 
 .. automodule:: zrcl3_utils.hashlib
@@ -14,7 +14,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.json
 ------------------
 
 .. automodule:: zrcl3_utils.json
@@ -22,7 +22,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.keyring
 ------------------
 
 .. automodule:: zrcl3_utils.keyring
@@ -30,7 +30,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.logging
 ------------------
 
 .. automodule:: zrcl3_utils.logging
@@ -38,7 +38,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.os
 ------------------
 
 .. automodule:: zrcl3_utils.os
@@ -46,7 +46,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.pillow
 ------------------
 
 .. automodule:: zrcl3_utils.pillow
@@ -54,7 +54,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.pygetwindow
 ------------------
 
 .. automodule:: zrcl3_utils.pygetwindow
@@ -62,7 +62,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.pyscreeze
 ------------------
 
 .. automodule:: zrcl3_utils.pyscreeze
@@ -70,7 +70,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.pywin32
 ------------------
 
 .. automodule:: zrcl3_utils.pywin32
@@ -78,7 +78,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.screeninfo
 ------------------
 
 .. automodule:: zrcl3_utils.screeninfo
@@ -86,7 +86,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.subprocess
 ------------------
 
 .. automodule:: zrcl3_utils.subprocess
@@ -94,7 +94,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.time
 ------------------
 
 .. automodule:: zrcl3_utils.time
@@ -102,7 +102,7 @@ zrcl3_utils.zrcl3_utils
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl3_utils.zrcl3_utils
+zrcl3_utils.typing
 ------------------
 
 .. automodule:: zrcl3_utils.typing

@@ -18,7 +18,16 @@ release = '0.1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
+autodoc_mock_imports = [
+    "screeninfo",
+    "pygetwindow",
+    "pyautogui",
+    "pyscreeze",
+    "pywin32",
+    "PIL",
+    "keyring",
+    "numpy",
+]
 
 extensions = [
     "sphinx.ext.todo",

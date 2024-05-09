@@ -1,4 +1,4 @@
-zrcl4.zrcl4
+zrcl4.automation
 ------------------
 
 .. automodule:: zrcl4.automation
@@ -6,7 +6,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.bit
 ------------------
 
 .. automodule:: zrcl4.bit
@@ -14,7 +14,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.cli_selection
 ------------------
 
 .. automodule:: zrcl4.cli_selection
@@ -22,7 +22,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.do_nothing
 ------------------
 
 .. automodule:: zrcl4.do_nothing
@@ -30,7 +30,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.file
 ------------------
 
 .. automodule:: zrcl4.file
@@ -38,7 +38,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.github
 ------------------
 
 .. automodule:: zrcl4.github
@@ -46,7 +46,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.markdown
 ------------------
 
 .. automodule:: zrcl4.markdown
@@ -54,7 +54,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.singleton
 ------------------
 
 .. automodule:: zrcl4.singleton
@@ -62,7 +62,7 @@ zrcl4.zrcl4
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-zrcl4.zrcl4
+zrcl4.zip_crack
 ------------------
 
 .. automodule:: zrcl4.zip_crack
