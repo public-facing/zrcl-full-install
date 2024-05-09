@@ -7,13 +7,13 @@ import numpy
 import pygetwindow as gw
 from PIL import Image
 import screeninfo
-from ..pkgs.pillow import load_base64_img
-from ..pkgs.pygetwindow import activate_wnd
-from ..pkgs.screeninfo import get_primary_monitor, wnd_on_monitor
+from zrcl3_utils.pillow import load_base64_img
+from zrcl3_utils.pygetwindow import activate_wnd
+from zrcl3_utils.screeninfo import get_primary_monitor, wnd_on_monitor
 
 
 def img_reg(token: "AutoToken"):
-    from ..pkgs.pyscreeze import locate
+    from zrcl3_utils.pyscreeze import locate
 
     return locate(
         token.sourceImg,
@@ -24,7 +24,7 @@ def img_reg(token: "AutoToken"):
 
 
 def ocr(token: "AutoToken"):
-    from ..pkgs.easyocr import get_text_coordinates, EasyOCRMeta
+    from zrcl3_utils.easyocr import get_text_coordinates, EasyOCRMeta
 
     imagearr = numpy.array(token.targetImg)
     res: list[EasyOCRMeta] = get_text_coordinates(imagearr, token.cfg_ocrLang)
@@ -268,4 +268,4 @@ _cached_memorized_wnd = {}
 
 
 def memorizedWnd(token: AutoToken):
-    pass
+    raise NotImplementedError
