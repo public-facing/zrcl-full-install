@@ -33,7 +33,8 @@ autodoc_mock_imports = [
     "py7zr",
     "marisa_trie",
     "requests",
-    "thefuzz"
+    "thefuzz",
+    "readchar"
 ]
 
 extensions = [
