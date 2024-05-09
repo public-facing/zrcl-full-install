@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "zrcl"
+version = "0.1.0"
+description = ""
+authors = ["ZackaryW <36378555+ZackaryW@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "zrcl4", from = "src" },
+    { include = "zrcl3_utils", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = ">=23.1,<25.0"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.2.6"
+sphinx-autobuild = "^2024.2.4"
+sphinx-copybutton = "^0.5.2"
+furo = "^2024.1.29"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
