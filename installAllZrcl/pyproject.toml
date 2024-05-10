@@ -21,6 +21,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=23.1,<25.0"
+
+[tool.poetry.group.extra-dev.dependencies]
 pygetwindow = ">=0.0.9"
 readchar=">=4.0.6"
 pytest="8.2.0"
@@ -31,13 +33,11 @@ pyautogui = ">=0.9.54"
 pandas = ">=2.2.2"
 thefuzz = ">=0.22.1"
 orjson = ">=3.10.3"
-pywin32 = ">=306"
 marisa-trie = ">=1.1.1"
 py7zr = ">=0.21.0"
-
-
 screeninfo = "^0.8.1"
 cryptography = "^42.0.7"
+
 [tool.poetry.group.docs.dependencies]
 sphinx = ">=7.2.6"
 sphinx-autobuild = ">=2024.2.4"
@@ -72,3 +72,5 @@ testpaths = [
 ]
 pythonpath  = ["src"]
 
+[tool.poetry.extras]
+extra = ["extra-dev"]
