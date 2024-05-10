@@ -38,4 +38,4 @@ def loop_pkg(mname : str, displayname : str = None):
 
 if __name__ == "__main__":
     loop_pkg("zrcl4")
-    loop_pkg("zrcl3_utils")
+    loop_pkg("zrcl3_uses")

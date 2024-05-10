@@ -4,8 +4,8 @@
 Zack's Reusable Common Library
 
 # structure
-- `zrcl4` each file extends one usage scenario
-- `zrcl3_utils` each file extends functionalities for one module
+- `zrcl4` each file extends functionalities for one module
+- `zrcl3_utils` each file extends one usage scenario
 
 # acknowledgements
 - `readthedocs` for `sphinx` generation

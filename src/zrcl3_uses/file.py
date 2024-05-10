@@ -1,7 +1,7 @@
 from collections.abc import Callable
 import os
 import typing
-from zrcl3_utils.hashlib import hash_file
+from zrcl4.hashlib import hash_file
 
 
 # ANCHOR loading files
