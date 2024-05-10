@@ -1,3 +1,7 @@
+"""
+This is a direct copy from https://github.com/ZackaryW/png.zip
+"""
+
 from PIL import Image, ImageDraw, PngImagePlugin
 import io
 import json
