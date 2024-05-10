@@ -9,7 +9,7 @@ Welcome to ZrCl's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   zrcl3_utils
+   zrcl3_uses
    zrcl4   
 
 
