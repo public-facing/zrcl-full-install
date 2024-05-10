@@ -1,3 +1,19 @@
+zrcl4
+------------------
+
+.. automodule:: zrcl4.__primitive__
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
+zrcl4.cryptography
+------------------
+
+.. automodule:: zrcl4.cryptography
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
 zrcl4.easyocr
 ------------------
 
