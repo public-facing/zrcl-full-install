@@ -1,4 +1,4 @@
-zrcl4
+zrcl4.__primitive__
 ------------------
 
 .. automodule:: zrcl4.__primitive__
