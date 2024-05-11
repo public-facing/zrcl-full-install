@@ -5,7 +5,9 @@ description = "Add your description here"
 authors = [
     { name = "ZackaryW", email = "36378555+ZackaryW@users.noreply.github.com" }
 ]
-dependencies = []
+dependencies = [
+    "click>=8.1.7",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
@@ -22,3 +24,7 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/zro2"]
+
+# entry
+[project.scripts]
+zro2 = "zro2.__init__:cli"
