@@ -1,3 +1,5 @@
+import os
+import platform
 from time import sleep
 import pygetwindow as gw
 import typing
@@ -60,3 +62,41 @@ def grid_orientation(
             break
 
         sleep(sleepTime)
+
+def get_process_wnds(processname : str) -> typing.List[gw.Window]:
+    if not platform.system() == "Windows":
+        raise NotImplementedError
+    
+    procs = []
+    import psutil
+    for proc in psutil.process_iter():
+        if proc.name().startswith(processname):
+            procs.append(proc)
+
+    procIds = [proc.pid for proc in procs]
+    import win32process
+    wnds = []
+    for wnd in gw.getAllWindows():
+        wnd : gw.Win32Window
+
+        _, winpid = win32process.GetWindowThreadProcessId(wnd._hWnd)
+
+        if winpid in procIds:
+            wnds.append(wnd)
+    return wnds
+
+def get_visible_process_wnds(processname : str):
+    return [wnd for wnd in get_process_wnds(processname) if wnd.height > 0 and wnd.width > 0]
+
+def refetch_wnd(wnd : gw.Window) -> gw.Window:
+    candidates = gw.getWindowsWithTitle(wnd.title)
+    if len(candidates) == 1:
+        return candidates[0]
+
+    for candidate in candidates:
+        if platform.system() == "Windows":
+            if candidate._hWnd == wnd._hWnd:
+                return candidate
+        else:
+            return candidate        
+    
