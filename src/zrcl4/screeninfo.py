@@ -55,3 +55,9 @@ def wnd_to_monitor(
         coord = (monitor.x, monitor.y)
 
     wnd.move(coord[0], coord[1])
+
+
+def wnd_to_primary(wnd: gw.Window = None):
+    if wnd is None:
+        wnd = gw.getActiveWindow()
+    wnd_to_monitor(wnd, get_primary_monitor())
