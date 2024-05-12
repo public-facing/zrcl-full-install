@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zrcl"
-version = "0.2.1"
+version = "0.3.0"
 description = ""
 authors = ["ZackaryW <36378555+ZackaryW@users.noreply.github.com>"]
 license = "MIT"
