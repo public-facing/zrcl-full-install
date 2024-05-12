@@ -155,3 +155,9 @@ class FileProperty:
             )
 
         return self._cachedContent[self.path]
+
+# ANCHOR
+def startApp(path: str):
+    import zrcl4.subprocess as subprocess
+    subprocess.exec_command(path)
+    
