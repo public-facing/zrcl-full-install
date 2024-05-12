@@ -1,6 +1,7 @@
 from contextlib import contextmanager
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from functools import cached_property
+import logging
 import time
 import typing
 import numpy
@@ -8,19 +9,25 @@ import pygetwindow as gw
 from PIL import Image
 import screeninfo
 from zrcl4.pillow import load_base64_img
-from zrcl4.pygetwindow import activate_wnd
+from zrcl4.pygetwindow import activate_wnd, get_window_pos, refetch_wnd
+from zrcl4.pyscreeze import boxcenter
 from zrcl4.screeninfo import get_primary_monitor, wnd_on_monitor
-
+from pyscreeze import Box
 
 def img_reg(token: "AutoToken"):
     from zrcl4.pyscreeze import locate
 
-    return locate(
+    res = locate(
         token.sourceImg,
         token.targetImg,
         _algo=token.cfg_imgAlgo,
         confidence=token.confidence,
     )
+
+    if isinstance(res, Box) or (isinstance(res, tuple) and len(res) == 4):
+        return tuple(boxcenter(res))
+    
+    return res
 
 
 def ocr(token: "AutoToken"):
@@ -66,14 +73,8 @@ def ocr(token: "AutoToken"):
 
     top_left = rect["top_left"]
     bottom_rght = rect["bottom_right"]
-    # return as rect
-    return (
-        top_left[0],
-        top_left[1],
-        bottom_rght[0] - top_left[0],
-        bottom_rght[1] - top_left[1],
-    )
-
+    # return as center point
+    return (top_left[0] + bottom_rght[0]) / 2, (top_left[1] + bottom_rght[1]) / 2
 
 @dataclass
 class AutoToken:
@@ -102,6 +103,13 @@ class AutoToken:
     ocrMatchResult: typing.List[dict] = None
     result: typing.Tuple[float, float] = None
 
+    def __getattribute__(self, name):
+        if name == "wnd":
+            wnd = super().__getattribute__(name)
+            object.__setattr__(self, "wnd", refetch_wnd(wnd) if wnd else None)
+
+        return super().__getattribute__(name)
+
     def __post_init__(self):
         if not self.text and not self.image:
             raise ValueError("Either 'text' or 'image' must be set")
@@ -111,6 +119,16 @@ class AutoToken:
 
         if self.wnd and isinstance(self.wnd, str):
             self.wnd = gw.getWindowsWithTitle(self.wnd)[0]
+
+    def screenshot(self):
+        import pyscreeze
+
+        if self.wnd:
+            activate_wnd(self.wnd)
+        return pyscreeze.screenshot(
+            region=self.interestedRegion,
+            allScreens=True if not self.wnd or self.wndInNonPrimaryMonitor else False,
+        )
 
     @staticmethod
     def __prep_img(img):
@@ -185,14 +203,16 @@ class AutoToken:
                 primary = get_primary_monitor()
                 return (primary.x, primary.y, primary.width, primary.height)
             case (wnd, _, None):
-                return (wnd.left, wnd.top, wnd.width, wnd.height)
+                return get_window_pos(wnd)
             case (wnd, _, region) if self.regionIsRect:
-                return (wnd.left + region[0], wnd.top + region[1], region[2], region[3])
+                base = get_window_pos(wnd) 
+                return (base[0] + region[0], base[1] + region[1], region[2], region[3])
             case (wnd, _, region) if not self.regionIsRect:
                 # treat as width and height in center
+                base = get_window_pos(wnd)
                 return (
-                    wnd.left + wnd.width / 2 - region[0] / 2,
-                    wnd.top + wnd.height / 2 - region[1] / 2,
+                    base[0] + base[2] / 2 - region[0] / 2,
+                    base[1] + base[3] / 2 - region[1] / 2,
                     region[0],
                     region[1],
                 )
@@ -229,43 +249,79 @@ class AutoToken:
     def _execute(self):
         if self.preProcessCallback:
             self.preProcessCallback(self)
+        if self.wnd:
+            activate_wnd(self.wnd)
+
         if self.text:
             res = self.ocrMethod(self)
         else:
             res = self.imgMethod(self)
-        if self.postProcessCallback:
-            self.postProcessCallback(self, res)
+        
         if not res:
             return None
 
         # relative to interested region
         iregion = self.interestedRegion
-        return (res[0] + iregion[0], res[1] + iregion[1])
+        self.result = res
+        curr_normalized = (res[0] + iregion[0], res[1] + iregion[1])
+        if self.postProcessCallback:
+            self.postProcessCallback(self, curr_normalized)
+        
+        return curr_normalized
 
     def __call__(self, **kwds):
         return self._execute()
+    
+    @property
+    def normalizedResult(self):
+        iregion = self.interestedRegion
+        return (
+            self.result[0] + iregion[0],
+            self.result[1] + iregion[1],
+        )
 
+@dataclass(init=False)
+class FrozenToken(AutoToken):
+    def __init__(self, autoToken: AutoToken):
+        if not autoToken.result:
+            raise ValueError("result must be set")
+        d= asdict(autoToken)
+        super().__init__(
+            **d,
+        )
+        self.__inited__ = True
+
+    def __setattr__(self, name: str, value) -> None:
+        if not hasattr(self, "__inited__"):
+            return super().__setattr__(name, value)
+
+        if not hasattr(self, name):
+            return super().__setattr__(name, value)
+        
+        raise AttributeError(f"{self.__class__.__name__} is frozen")
+
+    def __hash__(self):
+        return hash(self.result)
+    
+    
 
 def waitFor(token: AutoToken, timeout: float = 10.0, interval: float = 1.1):
     currentTime = time.time()
     while time.time() - currentTime < timeout:
-        if not token():
-            time.sleep(interval)
-        else:
-            break
+        try:
+            if token():
+                break
+        except Exception as e:
+            logging.error(e)
 
-    return token.result
+        time.sleep(interval)
 
+    if not token.result:
+        raise TimeoutError("Timed out")
+    return token.normalizedResult
 
 @contextmanager
 def repeatWith(token: AutoToken, times: int = 1):
     for _ in range(times):
         yield token()
-    return token.result
-
-
-_cached_memorized_wnd = {}
-
-
-def memorizedWnd(token: AutoToken):
-    raise NotImplementedError
+    return token.normalizedResult
