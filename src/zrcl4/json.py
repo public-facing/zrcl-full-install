@@ -27,7 +27,8 @@ def touch_json(file: str, default: str = "{}"):
     with open(file, "w") as f:
         f.write(default)
 
-def parse_dotted_dict(data : dict):
+
+def parse_dotted_dict(data: dict):
     """
     Parses a dictionary with dotted keys into a nested dictionary.
 
@@ -44,14 +45,15 @@ def parse_dotted_dict(data : dict):
     """
     result = {}
     for key, value in data.items():
-        keys = key.split('.')
+        keys = key.split(".")
         temp = result
         for k in keys[:-1]:
             temp = temp.setdefault(k, {})
         temp[keys[-1]] = value
     return result
 
-def flatten_nested_dict(data: dict, parent_key: str = '', sep: str = '.') -> dict:
+
+def flatten_nested_dict(data: dict, parent_key: str = "", sep: str = ".") -> dict:
     """
     Flattens a nested dictionary into a single-level dictionary.
 
