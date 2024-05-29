@@ -32,7 +32,7 @@ def create_thumbnail(video_path, output_path, time_sec=lambda x: random.randint(
 
 def batch_thumbnails(
     folder_path,
-    thumbnail_folder_path = None,
+    thumbnail_folder_path=None,
     supported_extensions: typing.List[str] = [".mp4", ".mkv", ".mov", ".avi", ".webm"],
     time_sec=lambda x: random.randint(0, x),
 ):
@@ -56,10 +56,8 @@ def batch_thumbnails(
         thumbnail_folder_path = folder_path
 
     for file in os.listdir(folder_path):
-        file : str
+        file: str
         if file.endswith(tuple(supported_extensions)):
             video_path = os.path.join(folder_path, file)
             output_path = os.path.join(thumbnail_folder_path, file)
             create_thumbnail(video_path, output_path, time_sec)
-
-
