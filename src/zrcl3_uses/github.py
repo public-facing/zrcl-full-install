@@ -85,8 +85,10 @@ def github_get_releases(repo: str, limit=10):
 def github_release_meta(
     repo: str,
     name: str = None,
-    match: typing.Literal["exact", "startswith", "contains", "endswith", "glob"] = "exact",
-    match_release_tag = False,
+    match: typing.Literal[
+        "exact", "startswith", "contains", "endswith", "glob"
+    ] = "exact",
+    match_release_tag=False,
 ):
     # Base URL for GitHub API
     base_url = f"https://api.github.com/repos/{repo}/releases"
@@ -121,7 +123,9 @@ def github_release_meta(
 def download_release(
     releasejson: dict,
     filename: str = None,
-    match: typing.Literal["exact", "startswith", "contains", "endswith", "glob"] = "exact",
+    match: typing.Literal[
+        "exact", "startswith", "contains", "endswith", "glob"
+    ] = "exact",
     save: str = None,
 ):
     for asset in releasejson.get("assets", []):
@@ -139,8 +143,8 @@ def download_release(
         download_url = asset["browser_download_url"]
         # download using stream
         response = requests.get(download_url, stream=True)
-        response.raise_for_status() 
-        
+        response.raise_for_status()
+
         content = io.BytesIO()
 
         for block in response.iter_content(1024):
@@ -150,7 +154,5 @@ def download_release(
             with open(save, "wb") as f:
                 f.write(content.getvalue())
             return
-        
+
         return content
-    
-        

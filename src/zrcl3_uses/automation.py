@@ -14,6 +14,7 @@ from zrcl4.pyscreeze import boxcenter
 from zrcl4.screeninfo import get_primary_monitor, wnd_on_monitor
 from pyscreeze import Box
 
+
 def img_reg(token: "AutoToken"):
     from zrcl4.pyscreeze import locate
 
@@ -26,7 +27,7 @@ def img_reg(token: "AutoToken"):
 
     if isinstance(res, Box) or (isinstance(res, tuple) and len(res) == 4):
         return tuple(boxcenter(res))
-    
+
     return res
 
 
@@ -75,6 +76,7 @@ def ocr(token: "AutoToken"):
     bottom_rght = rect["bottom_right"]
     # return as center point
     return (top_left[0] + bottom_rght[0]) / 2, (top_left[1] + bottom_rght[1]) / 2
+
 
 @dataclass
 class AutoToken:
@@ -205,7 +207,7 @@ class AutoToken:
             case (wnd, _, None):
                 return get_window_pos(wnd)
             case (wnd, _, region) if self.regionIsRect:
-                base = get_window_pos(wnd) 
+                base = get_window_pos(wnd)
                 return (base[0] + region[0], base[1] + region[1], region[2], region[3])
             case (wnd, _, region) if not self.regionIsRect:
                 # treat as width and height in center
@@ -256,7 +258,7 @@ class AutoToken:
             res = self.ocrMethod(self)
         else:
             res = self.imgMethod(self)
-        
+
         if not res:
             return None
 
@@ -266,12 +268,12 @@ class AutoToken:
         curr_normalized = (res[0] + iregion[0], res[1] + iregion[1])
         if self.postProcessCallback:
             self.postProcessCallback(self, curr_normalized)
-        
+
         return curr_normalized
 
     def __call__(self, **kwds):
         return self._execute()
-    
+
     @property
     def normalizedResult(self):
         iregion = self.interestedRegion
@@ -280,12 +282,13 @@ class AutoToken:
             self.result[1] + iregion[1],
         )
 
+
 @dataclass(init=False)
 class FrozenToken(AutoToken):
     def __init__(self, autoToken: AutoToken):
         if not autoToken.result:
             raise ValueError("result must be set")
-        d= asdict(autoToken)
+        d = asdict(autoToken)
         super().__init__(
             **d,
         )
@@ -297,13 +300,12 @@ class FrozenToken(AutoToken):
 
         if not hasattr(self, name):
             return super().__setattr__(name, value)
-        
+
         raise AttributeError(f"{self.__class__.__name__} is frozen")
 
     def __hash__(self):
         return hash(self.result)
-    
-    
+
 
 def waitFor(token: AutoToken, timeout: float = 10.0, interval: float = 1.1):
     currentTime = time.time()
@@ -319,6 +321,7 @@ def waitFor(token: AutoToken, timeout: float = 10.0, interval: float = 1.1):
     if not token.result:
         raise TimeoutError("Timed out")
     return token.normalizedResult
+
 
 @contextmanager
 def repeatWith(token: AutoToken, times: int = 1):
