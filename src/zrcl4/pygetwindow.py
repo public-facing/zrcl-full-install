@@ -1,4 +1,3 @@
-import os
 import platform
 from time import sleep
 import pygetwindow as gw
