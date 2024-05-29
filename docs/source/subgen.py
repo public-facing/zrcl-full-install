@@ -15,6 +15,7 @@ def generate_submodule_rst(pkg_name, module):
     output+= f"{pkg_name}.{module.split(".")[-1]}\n"
     output+="------------------\n\n"
     output += f".. automodule:: {module}\n"
+    output += "    :imported-members:\n"
     output += "    :members:\n"
     output += "    :undoc-members:\n"
     output += "    :show-inheritance:\n"

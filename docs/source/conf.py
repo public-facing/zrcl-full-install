@@ -38,6 +38,7 @@ autodoc_mock_imports = [
 ]
 
 extensions = [
+    'sphinx.ext.napoleon',
     "sphinx.ext.todo",
     "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
@@ -50,6 +51,10 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 autodoc_default_options = {
     "member-order": "bysource",
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+    'imported-members': True  # Ensure this is True to include imported members
 }
 add_module_names = False
 
