@@ -1,5 +1,6 @@
 import io
 from typing import TypedDict, overload
+import typing
 import easyocr
 import numpy
 
@@ -28,7 +29,7 @@ class EasyOCRMeta(TypedDict):
 
 
 def get_text_coordinates(
-    image: str | bytes | numpy.ndarray | io.BytesIO, lang=["en"]
+    image: typing.Union[str, bytes, numpy.ndarray, io.BytesIO], lang=["en"]
 ) -> list[EasyOCRMeta]:
 
     reader = easyocr.Reader(lang)  # Initialize the EasyOCR reader for English
