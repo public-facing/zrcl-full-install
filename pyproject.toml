@@ -21,6 +21,7 @@ build-backend = "poetry.core.masonry.api"
 black = ">=23.1,<25.0"
 
 keyring = "^25.2.1"
+moviepy = "^1.0.3"
 [tool.poetry.group.extra-dev.dependencies]
 pygetwindow = ">=0.0.9"
 readchar=">=4.0.6"
