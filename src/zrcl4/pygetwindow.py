@@ -8,6 +8,8 @@ from .screeninfo import get_screen_dimensions
 
 def activate_wnd(wnd: gw.Window):
     try:
+        if wnd.isActive:
+            return
         wnd.activate()
     except gw.PyGetWindowException:
         pass
